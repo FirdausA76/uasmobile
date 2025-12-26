@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'edit_profil_screen.dart';
+import 'login_screen.dart';
 
 class ProfilScreen extends StatelessWidget {
   const ProfilScreen({super.key});
@@ -55,7 +56,7 @@ class ProfilScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 4),
                   image: const DecorationImage(
-                    image: NetworkImage('https://ui-avatars.com/api/?name=Firdaus+Antigravity&background=random'),
+                    image: NetworkImage('https://ui-avatars.com/api/?name=ANANDA+FIRDAUSI+MU&background=random'),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -84,7 +85,7 @@ class ProfilScreen extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           const Text(
-            'Firdaus Antigravity',
+            'ANANDA FIRDAUSI MU',
             style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
           ),
           const Text(
@@ -100,7 +101,7 @@ class ProfilScreen extends StatelessWidget {
     return _buildSectionLayout(
       title: 'Identitas Diri',
       children: [
-        _buildProfileItem(Icons.person_outline_rounded, 'Nama Lengkap', 'Firdaus Antigravity'),
+        _buildProfileItem(Icons.person_outline_rounded, 'Nama Lengkap', 'ANANDA FIRDAUSI MU'),
         _buildProfileItem(Icons.phone_iphone_rounded, 'Nomor HP', '+62 812 3456 7890'),
         _buildProfileItem(Icons.location_on_outlined, 'Alamat', 'Semarang, Indonesia'),
       ],
@@ -141,19 +142,20 @@ class ProfilScreen extends StatelessWidget {
 
   Widget _buildLogoutButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       child: SizedBox(
         width: double.infinity,
-        child: OutlinedButton.icon(
-          onPressed: () {
-             _showLogoutDialog(context);
-          },
-          icon: const Icon(Icons.logout_rounded, color: Colors.red),
-          label: const Text('Logout', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-          style: OutlinedButton.styleFrom(
-            side: const BorderSide(color: Colors.red),
-            padding: const EdgeInsets.symmetric(vertical: 12),
+        child: ElevatedButton.icon(
+          onPressed: () => _showLogoutDialog(context),
+          icon: const Icon(Icons.logout_rounded),
+          label: const Text('Keluar dari Akun', style: TextStyle(fontWeight: FontWeight.bold)),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.red,
+            side: const BorderSide(color: Colors.red, width: 1.5),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            elevation: 0,
           ),
         ),
       ),
@@ -225,14 +227,23 @@ class ProfilScreen extends StatelessWidget {
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (BuildContext dialogContext) => AlertDialog(
         title: const Text('Konfirmasi Logout'),
         content: const Text('Apakah Anda yakin ingin keluar dari aplikasi?'),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Batal')),
           TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Ya, Keluar', style: TextStyle(color: Colors.red)),
+            onPressed: () => Navigator.pop(dialogContext), 
+            child: const Text('Batal', style: TextStyle(color: Colors.grey)),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                (route) => false,
+              );
+            },
+            child: const Text('Ya, Keluar', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
           ),
         ],
       ),

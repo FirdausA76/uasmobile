@@ -54,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Firdaus Antigravity',
+                    'ANANDA FIRDAUSI MU',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,

@@ -20,7 +20,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
   void initState() {
     super.initState();
     // Inisialisasi dengan data dummy
-    _namaController = TextEditingController(text: 'Firdaus Antigravity');
+    _namaController = TextEditingController(text: 'ANANDA FIRDAUSI MU');
     _emailController = TextEditingController(text: 'firdaus.anti@email.com');
     _teleponController = TextEditingController(text: '+62 812 3456 7890');
     _alamatController = TextEditingController(text: 'Semarang, Indonesia');
@@ -117,7 +117,7 @@ class _EditProfilScreenState extends State<EditProfilScreen> {
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white, width: 4),
                 image: const DecorationImage(
-                  image: NetworkImage('https://ui-avatars.com/api/?name=Firdaus+Antigravity&background=random'),
+                  image: NetworkImage('https://ui-avatars.com/api/?name=ANANDA+FIRDAUSI+MU&background=random'),
                   fit: BoxFit.cover,
                 ),
               ),
