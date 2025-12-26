@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'notifikasi_screen.dart';
+import 'detail_kelas_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,9 +17,9 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
             _buildCategories(),
             const SizedBox(height: 25),
-            _buildContinueLearning(),
+            _buildContinueLearning(context),
             const SizedBox(height: 25),
-            _buildPopularCourses(),
+            _buildPopularCourses(context),
             const SizedBox(height: 20),
           ],
         ),
@@ -168,7 +169,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildContinueLearning() {
+  Widget _buildContinueLearning(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -179,47 +180,56 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 15),
-          Container(
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.green.withOpacity(0.2)),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.green.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(15),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DetailKelasScreen(title: 'UI/UX Design Masterclass')),
+              );
+            },
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.green.withOpacity(0.2)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.green.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: const Icon(Icons.play_circle_fill_rounded, color: Color(0xFF2E7D32), size: 40),
                   ),
-                  child: const Icon(Icons.play_circle_fill_rounded, color: Color(0xFF2E7D32), size: 40),
-                ),
-                const SizedBox(width: 15),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'UI/UX Design Masterclass',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      const Text('Modul 4: High-Fidelity Design', style: TextStyle(color: Colors.grey, fontSize: 13)),
-                      const SizedBox(height: 8),
-                      LinearProgressIndicator(
-                        value: 0.65,
-                        backgroundColor: Colors.grey[200],
-                        valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF2E7D32)),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ],
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'UI/UX Design Masterclass',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        const Text('Modul 4: High-Fidelity Design', style: TextStyle(color: Colors.grey, fontSize: 13)),
+                        const SizedBox(height: 8),
+                        LinearProgressIndicator(
+                          value: 0.65,
+                          backgroundColor: Colors.grey[200],
+                          valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF2E7D32)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 10),
-                const Text('65%', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
-              ],
+                  const SizedBox(width: 10),
+                  const Text('65%', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF2E7D32))),
+                ],
+              ),
             ),
           ),
         ],
@@ -227,7 +237,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPopularCourses() {
+  Widget _buildPopularCourses(BuildContext context) {
     final courses = [
       {'title': 'Fullstack Flutter Developer', 'instructor': 'Alex Johnson', 'price': 'Gratis', 'rating': '4.9'},
       {'title': 'Data Science Basics', 'instructor': 'Sarah Lee', 'price': 'Berbayar', 'rating': '4.8'},
@@ -259,60 +269,69 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           itemCount: courses.length,
           itemBuilder: (context, index) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: Colors.blueGrey[50],
-                      borderRadius: BorderRadius.circular(15),
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DetailKelasScreen(title: courses[index]['title']!)),
+                );
+              },
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                    )
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey[50],
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Icon(Icons.image_rounded, color: Colors.grey, size: 30),
                     ),
-                    child: const Icon(Icons.image_rounded, color: Colors.grey, size: 30),
-                  ),
-                  const SizedBox(width: 15),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          courses[index]['title']!,
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                        Text(courses[index]['instructor']!, style: const TextStyle(color: Colors.grey, fontSize: 13)),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              courses[index]['price']!,
-                              style: const TextStyle(color: Color(0xFF2E7D32), fontWeight: FontWeight.bold),
-                            ),
-                            Row(
-                              children: [
-                                const Icon(Icons.star_rounded, color: Colors.orange, size: 18),
-                                Text(courses[index]['rating']!, style: const TextStyle(fontWeight: FontWeight.bold)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
+                    const SizedBox(width: 15),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            courses[index]['title']!,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          Text(courses[index]['instructor']!, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+                          const SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                courses[index]['price']!,
+                                style: const TextStyle(color: Color(0xFF2E7D32), fontWeight: FontWeight.bold),
+                              ),
+                              Row(
+                                children: [
+                                  const Icon(Icons.star_rounded, color: Colors.orange, size: 18),
+                                  Text(courses[index]['rating']!, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },

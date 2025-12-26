@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'detail_kelas_screen.dart';
 
 class KelasSayaScreen extends StatelessWidget {
   const KelasSayaScreen({super.key});
@@ -136,7 +137,14 @@ class KelasSayaScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailKelasScreen(title: course['title'] as String),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2E7D32),
                     foregroundColor: Colors.white,
@@ -180,49 +188,60 @@ class KelasSayaScreen extends StatelessWidget {
       itemCount: completedCourses.length,
       itemBuilder: (context, index) {
         final course = completedCourses[index];
-        return Container(
-          margin: const EdgeInsets.only(bottom: 15),
-          padding: const EdgeInsets.all(15),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 10,
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailKelasScreen(title: course['title'] as String),
               ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: course['color'] as Color,
-                  borderRadius: BorderRadius.circular(15),
+            );
+          },
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 15),
+            padding: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
                 ),
-                child: Icon(course['image'] as IconData, color: const Color(0xFF2E7D32)),
-              ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      course['title'] as String,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      course['date'] as String,
-                      style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w600, fontSize: 13),
-                    ),
-                  ],
+              ],
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 60,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: course['color'] as Color,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Icon(course['image'] as IconData, color: const Color(0xFF2E7D32)),
                 ),
-              ),
-              const Icon(Icons.verified_rounded, color: Colors.blue),
-            ],
+                const SizedBox(width: 15),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        course['title'] as String,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        course['date'] as String,
+                        style: const TextStyle(color: Colors.green, fontWeight: FontWeight.w600, fontSize: 13),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(Icons.verified_rounded, color: Colors.blue),
+              ],
+            ),
           ),
         );
       },
