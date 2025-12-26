@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'edit_profil_screen.dart';
 
 class ProfilScreen extends StatelessWidget {
   const ProfilScreen({super.key});
@@ -19,11 +20,11 @@ class ProfilScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _buildHeader(),
+            _buildHeader(context),
             const SizedBox(height: 20),
             _buildIdentitySection(),
             _buildLoginActivities(),
-            _buildAccountSettings(),
+            _buildAccountSettings(context),
             _buildLogoutButton(context),
             const SizedBox(height: 30),
           ],
@@ -32,7 +33,7 @@ class ProfilScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeader(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 30),
@@ -62,13 +63,21 @@ class ProfilScreen extends StatelessWidget {
               Positioned(
                 bottom: 0,
                 right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const EditProfilScreen()),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.edit_rounded, size: 20, color: Color(0xFF2E7D32)),
                   ),
-                  child: const Icon(Icons.edit_rounded, size: 20, color: Color(0xFF2E7D32)),
                 ),
               ),
             ],
@@ -108,11 +117,22 @@ class ProfilScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAccountSettings() {
+  Widget _buildAccountSettings(BuildContext context) {
     return _buildSectionLayout(
       title: 'Pengaturan Akun',
       children: [
-        _buildProfileItem(Icons.edit_note_rounded, 'Edit Profil', 'Ubah data diri Anda', isClickable: true),
+        _buildProfileItem(
+          Icons.edit_note_rounded, 
+          'Edit Profil', 
+          'Ubah data diri Anda', 
+          isClickable: true,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const EditProfilScreen()),
+            );
+          },
+        ),
         _buildProfileItem(Icons.lock_outline_rounded, 'Ubah Password', 'Ganti kata sandi secara berkala', isClickable: true),
         _buildProfileItem(Icons.notifications_outlined, 'Notifikasi', 'Atur preferensi pemberitahuan', isClickable: true),
       ],
@@ -171,7 +191,14 @@ class ProfilScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildProfileItem(IconData icon, String title, String subtitle, {bool isSubTitleGreen = false, bool isClickable = false}) {
+  Widget _buildProfileItem(
+    IconData icon, 
+    String title, 
+    String subtitle, {
+    bool isSubTitleGreen = false, 
+    bool isClickable = false,
+    VoidCallback? onTap,
+  }) {
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.all(8),
@@ -191,7 +218,7 @@ class ProfilScreen extends StatelessWidget {
         )
       ),
       trailing: isClickable ? const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.grey) : null,
-      onTap: isClickable ? () {} : null,
+      onTap: onTap,
     );
   }
 
