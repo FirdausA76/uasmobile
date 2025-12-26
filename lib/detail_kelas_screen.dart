@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'kuis_screen.dart';
+import 'tugas_screen.dart';
 
 class DetailKelasScreen extends StatelessWidget {
   final String title;
@@ -73,7 +75,7 @@ class DetailKelasScreen extends StatelessWidget {
           body: TabBarView(
             children: [
               _buildMateriList(),
-              _buildTugasList(),
+              _buildTugasList(context),
             ],
           ),
         ),
@@ -119,16 +121,17 @@ class DetailKelasScreen extends StatelessWidget {
             title: Text(item['title'] as String, style: const TextStyle(fontWeight: FontWeight.bold)),
             subtitle: Text(item['duration'] as String),
             trailing: const Icon(Icons.download_rounded, size: 20, color: Colors.grey),
+            onTap: () {},
           ),
         );
       },
     );
   }
 
-  Widget _buildTugasList() {
+  Widget _buildTugasList(BuildContext context) {
     final tugas = [
-      {'title': 'Kuis 1: Dasar Desain', 'status': 'Selesai', 'deadline': 'Terkirim'},
-      {'title': 'Tugas Mandiri: Membuat Persona', 'status': 'Belum Selesai', 'deadline': '30 Des 2025'},
+      {'title': 'Kuis 1: Dasar Desain', 'status': 'Selesai', 'deadline': 'Terkirim', 'type': 'kuis'},
+      {'title': 'Tugas Mandiri: Membuat Persona', 'status': 'Belum Selesai', 'deadline': '30 Des 2025', 'type': 'tugas'},
     ];
 
     return ListView.builder(
@@ -149,6 +152,19 @@ class DetailKelasScreen extends StatelessWidget {
             ],
           ),
           child: ListTile(
+            onTap: () {
+              if (item['type'] == 'kuis') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => KuisScreen(title: item['title'] as String)),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TugasScreen(title: item['title'] as String)),
+                );
+              }
+            },
             leading: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
